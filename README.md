@@ -37,5 +37,3 @@ Project notes & next steps
 
 - I followed a feature-based layout: each feature (Blogs, etc.) lives under `features/<FeatureName>` with types, UI pieces, and pages grouped together.
 - RTK Query handles caching and invalidation.
-
-## Getting Started
