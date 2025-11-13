@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+This repository containe a small blog demo and a simple todo page. The work follows a feature-based component structure (see `features/Blogs`), uses Next.js patterns with TypeScript.
+
+- In root app page (`app/page.tsx`) with a small client-side To‑Do list (add/toggle/delete) persisted to `localStorage`.
+- Implemented a feature-driven Blogs area under `features/Blogs` and exposed app routes under `app/blogs`:
+  - `app/blogs` — lists posts (server-fetched + merged with locally-created posts)
+  - `app/blogs/create` — a client Create page that posts to the API and saves created posts to `localStorage`
+  - `app/blogs/[id]` — SSR details page which fetches the post by id and resolves the author server-side
+- Added RTK Query to manage API calls and caching for posts (`store/blogSlice/api.ts`) and wired it into a Redux store and provider (`store/index.ts`, `store/Provider.tsx`).
+- Styled the Blogs UI using `styled-components` and kept components organized in `features/style-components`.
+
+Key behaviors
+
+- Locally-created posts are persisted to `localStorage` (key: `localPosts`) and merged with server-fetched posts so new items appear immediately and persist across reloads.
+- The blog details page is server-side rendered (SSR). It checks the API response and returns a 404-like message if the post is not found. The author name is retrieved server-side from the users endpoint when available.
+
+Main files added/updated
+
+- app/page.tsx — replaced with a simple client todo UI
+- features/Blogs/\* — blog list, create form, and blog detail client component (`features/Blogs/page.tsx`, `Create.tsx`, `blog.tsx`)
+- features/style-components/index.tsx — shared styled-components for consistent UI
+- features/Blogs/types/blog.tsx — Blog type definition
+- store/blogSlice/api.ts — RTK Query API slice (getPosts, addPost)
+- store/index.ts — Redux store wiring
+- store/Provider.tsx — client wrapper to provide the store inside `app/layout.tsx`
+- app/blogs/\* — app router pages that render the feature components (`app/blogs/page.tsx`, `app/blogs/create/page.tsx`, `app/blogs/[id].tsx`)
+
+Technologies used
+
+- Next.js (App Router) — server components + client components
+- React (v19) + TypeScript
+- Redux Toolkit & RTK Query — API data fetching, caching, and mutations
+- react-redux — Provider
+- styled-components — component-scoped styling
+- localStorage — simple client persistence for newly-created posts
+
+Project notes & next steps
+
+- I followed a feature-based layout: each feature (Blogs, etc.) lives under `features/<FeatureName>` with types, UI pieces, and pages grouped together.
+- RTK Query handles caching and invalidation.
 
 ## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
