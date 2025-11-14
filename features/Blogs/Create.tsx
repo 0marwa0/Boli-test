@@ -27,7 +27,8 @@ export default function Create() {
         const raw = localStorage.getItem("localPosts");
         const localPosts = raw ? JSON.parse(raw) : [];
         const stored = {
-          id: result.id ?? Date.now(),
+          id: Date.now(),
+          serverId: result.id ?? null,
           title: result.title,
           body: result.body,
           author: result.author,
@@ -36,7 +37,6 @@ export default function Create() {
           "localPosts",
           JSON.stringify([stored, ...localPosts])
         );
-        // notify other components in the same tab
         try {
           window.dispatchEvent(new Event("localPostsUpdated"));
         } catch {}
