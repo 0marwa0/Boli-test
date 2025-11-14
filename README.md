@@ -1,3 +1,6 @@
+
+Live link for the app  [link](https://boli-test-3gmxj2sff-marwa-s-projects-ea57588c.vercel.app/)
+
 This repository containe a small blog demo and a simple todo page. The work follows a feature-based component structure (see `features/Blogs`), uses Next.js patterns with TypeScript.
 
 - In root app page (`app/page.tsx`) with a small client-side To‑Do list (add/toggle/delete) persisted to `localStorage`.
